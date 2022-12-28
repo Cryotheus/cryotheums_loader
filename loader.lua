@@ -1,4 +1,4 @@
---https://github.com/Cryotheus/cryotheum s_loader
+--https://github.com/Cryotheus/cryotheums_loader
 local config = {
 	--first load order, these are processed and loaded first
 	{

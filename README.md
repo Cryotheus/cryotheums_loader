@@ -4,6 +4,7 @@ Directory style loader with useful features! These features are:
  *  Easy to customize load order
  *  Loading conditions
  *  Load timings
+ *  Designed for both Gamemodes, Addons, and loose projects
  *  Maintenance free extension loading (coming soon)
 
 ### Setup Instruction
@@ -32,7 +33,7 @@ Values in the `config` can be:
 The load instruction should be styled like so: `"method modifier complex_modifier:parameter timing"`  
 You should only have one method and one timing, but you can have as many modifiers as you want.  
 The order of the modifiers is the order they will be checked in.  
-Although not currently used, complex modifiers can have multiple parameters, separated by a a colon (eg. `"custom_complex_modifier:Canada:31415926:github.com"`)
+Although not currently used, complex modifiers can have multiple parameters, separated by a a colon (eg. `"custom_complex_modifier:Canada:31415926:github.com"` provides `Canada`, `31415926`, and `github.com` to the `custom_complex_modifier` function)
 
 #### Loading Methods
 Must go first.

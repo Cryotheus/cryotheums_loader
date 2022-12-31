@@ -10,13 +10,13 @@ Directory style loader with useful features! These features are:
 ### Setup Instruction
 Change the locals in scope zero (everything above the `do` block) to your project's specification. You must set `branding` to something unique, like the name of your addon.  
 Place this in a custom folder in the lua directory of your project eg. `addons/johns_admin_tool/lua/johnsadmtool/loader.lua` or `gamemodes/nut_destroyer/gamemode/loader.lua` and include it from somewhere.  
-**DON'T**
+#### **DON'T**
  *  Use this loader directly from `autorun` (including `autorun/client` and `autorun/server`)
  *  Set `branding` to a really short acronym or something potentially ubiquitous.
  *  Use dark colors in the configurable locals (this can cause the messages on 32 bit windows servers to be black, which on a black background console turns them invisible)
  *  A thousand load orders. That would look stupid.
- *  Load the loader from itself.
-**DO**
+ *  Load the loader from itself.  
+#### **DO**
  *  Have a file with the addon name in `autorun` that includes the loader, eg. `autorun/ez_screen_capture.lua` containing `include("ez_screen_capture/loader.lua")` and nothing else.
  *  Use a unique branding name, like the name of your addon or gamemode.
  *  Use light colors in the configurable locals.
@@ -37,19 +37,19 @@ Although not currently used, complex modifiers can have multiple parameters, sep
 
 #### Loading Methods
 Must go first.
-|    Method    | Description
-| :----------: | ---
-|  `"client"`   | Loads on the client and server, but only AddCSLuaFile's on the server.
-| `"download"`  | Only AddCSLuaFile's on the server.
+|     Method    | Description
+| :-----------: | :----------------------------------------------------------------------
+|  `"client"`   | Loads on the client and server, but only AddCSLuaFile'd on the server.
+| `"download"`  | Only AddCSLuaFile'd on the server.
 |  `"server"`   | Only loads on the server.
-|  `"shared"`   | Loads on the client and server, and AddCSLuaFile's on the server.
+|  `"shared"`   | Loads on the client and server, and AddCSLuaFile'd on the server.
 |   `false`     | Completely ignored: Doesn't load. Doesn't check modifiers.
 |    `true`     | Same as the file name.
 | Anything else | Same as `false`.
 
 #### Loading Modifiers
 |     Modifier     | Parameters  | Description
-| :--------------: | ----------- | --- 
+| :--------------: | :---------- | :-----------------------------------------------------
 |  `"dedicated"`   |             | Only loads on dedicated servers.
 |  `"developer"`   |             | Only loads if the `developer` convar is set.
 |   `"hosted"`     |             | Only loads on listen or dedicated servers.

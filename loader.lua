@@ -47,7 +47,7 @@ do --do not touch
 	--locals
 	local block_developer = not GetConVar("developer"):GetBool()
 	local check_words, load_late, load_methods, word_methods
-	local global = _G[CryotheumsLoader .. "_" .. branding] or {}
+	local global = _G["CryotheumsLoader_" .. branding] or {}
 	local hook_name = "CryotheumsLoader" .. branding
 	local include_list = {}
 	local workshop_ids = {}
@@ -216,7 +216,7 @@ do --do not touch
 	
 	--globals
 	_CryotheumsLoaderHookHistory = _CryotheumsLoaderHookHistory or {}
-	_G[CryotheumsLoader .. "_" .. branding] = global
+	_G["CryotheumsLoader_" .. branding] = global
 	
 	--post
 	for hook_event, hook_functions in pairs(hook.GetTable()) do if hook_functions[hook_name] then hook.Remove(hook_event, hook_name) end end --remove outdated hooks

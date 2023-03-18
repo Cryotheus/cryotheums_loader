@@ -6,10 +6,10 @@ local config = {
 		--make sure it is marked for AddCSLuaFile by setting it to download in here
 		--the key is loader because this file is named loader.lua
 		loader = "download",
-		
+
 		some_client_script = "client",
 		some_shared_script = "shared",
-		
+
 		--a folder named dictionaries
 		dictionaries = {
 			--we want download when the client needs to include the script, but we load it from somewhere other than here
@@ -17,7 +17,7 @@ local config = {
 			fr_ca = "download",
 			pt_br = "download",
 		},
-		
+
 		--a folder named early_loaded_scripts which is placed next to this file
 		early_loaded_scripts = {
 			--files named server, client, shared, stream, and compatibility
@@ -28,12 +28,12 @@ local config = {
 			stream = "shared",
 		},
 	},
-	
+
 	--second load order, as you guessed, these are loaded after everything above
 	{
-		
+
 	},
-	
+
 	--you can have more load orders, but you should understand this script by now
 	--please leave the link to this script if you use it, this lets others use the most updated version
 }
@@ -274,10 +274,10 @@ do --do not touch
 
 	local function contains_path_list(file_structure, path_list)
 		local indexed = file_structure
-		
+
 		for index, object in ipairs(path_list) do
 			indexed = indexed[object]
-			
+
 			if not indexed then return false end
 		end
 
@@ -297,28 +297,30 @@ do --do not touch
 
 	--provide useful functions
 	CryotheumsLoaderFunctions = {
-		After = function(path)
+		After = function(path, dont_create_table)
 			local index = find_path(path)
 
 			if index then
 				local next_structure = config[index + 1]
 
-				if next_structure then return next_structure, index + 1, true end
+				if next_structure then return next_structure, index + 1, false end
+				if dont_create_table then return nil, index + 1, false end
 
 				next_structure = {}
-				
+
 				return next_structure, table.insert(config, next_structure), true
 			else index = #config end
 
 			return config[index], config, false
 		end,
 
-		Before = function(path)
+		Before = function(path, dont_create_table)
 			local index = find_path(path)
 			local found = false
 
 			if index == 1 then found = true
-			elseif index then return config[index - 1], index - 1 end
+			elseif index then return config[index - 1], index - 1, false end
+			if dont_create_table then return nil, index or 1, false end
 
 			local first_structure = {}
 

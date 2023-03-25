@@ -58,7 +58,12 @@ do --do not touch
 	--local functions
 	local function build_list(include_list, prefix, tree) --recursively explores to build load order
 		for name, object in pairs(tree) do
-			local trimmed_path = name == 1 and string.sub(prefix, 1, -2) or prefix .. name
+			local trimmed_path
+
+			if name == 1 then
+				name = select(3, string.find(prefix, "[/]*([^/]-)/?$"))
+				trimmed_path = string.sub(prefix, 1, -2)
+			else trimmed_path = prefix .. name end
 
 			if istable(object) then build_list(include_list, trimmed_path .. "/", object)
 			elseif object then

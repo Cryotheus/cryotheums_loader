@@ -305,7 +305,7 @@ do --do not touch
 				return next_structure, table.insert(config, next_structure), true
 			else index = #config end
 
-			return config[index], config, false
+			return config[index], index, false
 		end,
 
 		Before = function(path, dont_create_table)

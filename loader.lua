@@ -53,6 +53,8 @@ do --do not touch
 	local global = _G["CryotheumsLoader_" .. branding] or {}
 	local hook_name = "CryotheumsLoader" .. branding
 	local include_list = {}
+	local loader = debug.getinfo(1, "S").short_src
+	local loader_directory = string.GetPathFromFilename(string.sub(loader, select(2, string.find(loader, GM and "/.-/gamemodes/" or "/?lua/")) + 1))
 	local workshop_ids = {}
 
 	--local functions
@@ -126,11 +128,12 @@ do --do not touch
 		if scripts.First then
 			local new_scripts = {}
 			global[hook_event] = new_scripts
+			scripts.First = false
 
 			for index, script_pair in ipairs(scripts) do
 				local script = script_pair[1]
 
-				include(script)
+				include(loader_directory .. script)
 
 				if script_pair[2] then table.insert(new_scripts, script) end
 			end
@@ -139,7 +142,7 @@ do --do not touch
 			if new_scripts[1] then return end
 
 			hook.Remove(hook_event, hook_name)
-		else for index, script in ipairs(scripts) do include(script) end end
+		else for index, script in ipairs(scripts) do include(loader_directory .. script) end end
 	end
 
 	local function load_scripts(include_list)
@@ -252,11 +255,7 @@ do --do not touch
 
 	--post
 	if load_extensions then
-		local loader = debug.getinfo(1, "S").short_src
-		local _start, finish = string.find(loader, GM and "/.-/gamemodes/" or "/?lua/")
-
-		local loader_path = string.sub(loader, finish + 1)
-		local loader_extensions_directory = string.GetPathFromFilename(loader_path) .. "extensions/"
+		local loader_extensions_directory = loader_directory .. "extensions/"
 		local map = game.GetMap()
 		SHARED = true --for shared.lua extension files
 
